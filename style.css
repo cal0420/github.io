@@ -110,19 +110,10 @@ a {
   align-items: center;
   position: relative;
   overflow: hidden;
-
-  background-image:
-    linear-gradient(
-      90deg,
-      rgba(3, 2, 7, 0.75),
-      rgba(4, 2, 8, 0.45),
-      rgba(4, 2, 8, 0.15)
-    ),
-    url("./assets/c4g-banner.png");
-
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background:
+    linear-gradient(90deg, rgba(3, 2, 7, 0.97), rgba(4, 2, 8, 0.65) 42%, rgba(4, 2, 8, 0.18) 72%, rgba(4, 2, 8, 0.72)),
+    linear-gradient(180deg, transparent 60%, #050309),
+    url("assets/c4g-banner.png") center / cover no-repeat;
 }
 
 .hero-copy {
@@ -440,3 +431,67 @@ footer {
     display: block;
   }
 }
+
+
+/* Pricing page */
+.pricing-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 110px 0 70px;
+  border-bottom: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 50% 20%, rgba(168, 60, 255, 0.26), transparent 34rem),
+    linear-gradient(180deg, rgba(18, 8, 32, 0.7), rgba(5, 3, 9, 0.96));
+  text-align: center;
+}
+.pricing-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(168,60,255,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(168,60,255,.055) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to bottom, black, transparent 85%);
+}
+.pricing-hero-copy { position: relative; z-index: 1; max-width: 860px; }
+.pricing-hero h1 { font-size: clamp(3rem, 7vw, 5.6rem); }
+.pricing-hero .lead { margin-inline: auto; }
+.pricing-section { padding-top: 54px; }
+.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
+.price-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(24, 12, 43, .96), rgba(8, 5, 16, .98));
+  box-shadow: 0 26px 80px rgba(0,0,0,.46);
+  transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+}
+.price-card:hover { transform: translateY(-6px); border-color: rgba(188, 94, 255, .58); }
+.price-card.featured { border-color: rgba(188,94,255,.72); box-shadow: 0 28px 85px rgba(117,29,189,.25); }
+.price-card.ultimate { background: linear-gradient(180deg, rgba(35,19,49,.97), rgba(9,5,16,.98)); }
+.popular-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); padding: 7px 14px; border-radius: 999px; background: linear-gradient(135deg,#8a20df,#c45cff); font-size:.72rem; font-weight:900; letter-spacing:1px; text-transform:uppercase; white-space:nowrap; box-shadow:0 8px 28px rgba(168,60,255,.38); }
+.price-card-top { display:flex; align-items:center; gap:14px; }
+.price-card-top h2 { margin:4px 0 0; font-size:1.8rem; }
+.plan-icon { width:54px; height:54px; flex:0 0 54px; display:grid; place-items:center; border-radius:16px; color:#e1b9ff; background:rgba(168,60,255,.14); border:1px solid rgba(168,60,255,.28); font-size:1.35rem; }
+.plan-summary { min-height:52px; color:var(--muted); }
+.price { display:flex; align-items:baseline; gap:8px; margin:12px 0 22px; }
+.price span { font-size:2.75rem; line-height:1; font-weight:950; letter-spacing:-2px; }
+.price small { color:var(--muted); }
+.plan-features { list-style:none; margin:0 0 25px; padding:0; flex:1; }
+.plan-features li { position:relative; padding:9px 0 9px 27px; color:#ddd1e8; border-bottom:1px solid rgba(177,78,255,.1); }
+.plan-features li::before { content:"✓"; position:absolute; left:0; color:#b85cff; font-weight:900; }
+.plan-button { width:100%; padding:14px 18px; border-radius:13px; border:1px solid rgba(177,78,255,.28); background:rgba(255,255,255,.055); color:#c9bdd3; font:inherit; font-weight:900; letter-spacing:1.2px; text-transform:uppercase; cursor:not-allowed; opacity:.78; }
+.plan-button.premium { background:linear-gradient(135deg,rgba(138,32,223,.35),rgba(181,65,255,.24)); color:#e9d4fa; }
+.button-note { margin:10px 0 0; color:#8f819c; font-size:.8rem; text-align:center; }
+.compact-section { padding-top:30px; }
+.faq-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; }
+.faq-card { padding:22px; border:1px solid var(--line); border-radius:18px; background:rgba(15,8,27,.72); }
+.faq-card h3 { margin:0 0 8px; }
+.faq-card p { margin:0; color:var(--muted); }
+.pricing-cta { text-align:center; background:linear-gradient(90deg,rgba(7,3,13,.92),rgba(42,13,67,.72),rgba(7,3,13,.92)), url("assets/c4g-banner.png") center/cover; }
+@media (max-width: 960px) { .pricing-grid { grid-template-columns:1fr; max-width:680px; margin-inline:auto; } .price-card { min-height:auto; } }
+@media (max-width: 680px) { .faq-grid { grid-template-columns:1fr; } .pricing-hero { padding-top:82px; } .price-card { padding:22px; } }
