@@ -1,2 +1,161 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#09040f"><title>Server Settings | C4G Hub</title><link rel="icon" href="assets/c4g-logo.png"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="v3.css"></head><body class="dashboard-page" data-dashboard-page="servers"><div class="dashboard-app"><aside class="dash-sidebar"><a class="dash-brand" href="index.html"><img src="assets/c4g-logo.png" alt="C4G Hub"><span><b>C4G HUB</b><small>CONTROL CENTRE</small></span></a><nav class="dash-nav"><span>Workspace</span><a data-page="dashboard" href="dashboard.html">⌂ <b>Overview</b></a><a data-page="servers" href="server-dashboard.html">⚙ <b>Server settings</b></a><a data-page="analytics" href="analytics.html">◫ <b>Analytics</b></a><span>Community</span><a data-page="leaderboard" href="leaderboard.html">♛ <b>Leaderboards</b></a><a data-page="economy" href="economy-dashboard.html">£ <b>Economy</b></a><a data-page="cs" href="cs-dashboard.html">◆ <b>CS collection</b></a><span>Services</span><a data-page="music" href="music-dashboard.html">♫ <b>Music control</b></a><a href="status.html">◌ <b>Bot status</b></a><a data-page="admin" href="admin-dashboard.html">⌘ <b>Admin panel</b></a></nav><div class="dash-sidebar-foot"><div class="mini-user"><div class="avatar-fallback">C</div><span><b data-c4g-username>Cal420</b><small>Private beta</small></span></div><button data-c4g-logout id="demoLogout" title="Sign out">↪</button></div></aside><main class="dash-main"><header class="dash-top"><button class="dash-menu" aria-label="Toggle dashboard menu">☰</button><div><span class="eyebrow">Server management</span><h1>C4G Hub settings.</h1></div><div class="top-actions"><span class="save-state" id="saveState">All changes saved</span><button class="button small primary" id="saveSettings">Save changes</button></div></header><section class="dash-content settings-layout"><aside class="server-card"><img src="assets/c4g-logo.png" alt=""><h3>C4G Hub</h3><p>Private community</p><span class="tag green">Bot connected</span><dl><dt>Members</dt><dd>200</dd><dt>Bot version</dt><dd>v0.9 beta</dd><dt>Plan</dt><dd>Community</dd></dl></aside><div class="settings-stack"><section class="settings-panel" id="general"><div class="panel-head"><div><span class="eyebrow">General</span><h2>Core configuration</h2></div></div><label class="field"><span>Command prefix</span><input value="!" maxlength="5"></label><label class="field"><span>Default language</span><select><option>English (United Kingdom)</option></select></label><label class="toggle-row"><span><b>Slash commands</b><small>Enable modern Discord application commands.</small></span><input type="checkbox" checked></label><label class="toggle-row"><span><b>Maintenance alerts</b><small>Notify administrators about planned downtime.</small></span><input type="checkbox" checked></label></section><section class="settings-panel" id="welcome"><div class="panel-head"><div><span class="eyebrow">Welcome system</span><h2>New member experience</h2></div><label class="switch"><input type="checkbox" checked><i></i></label></div><label class="field"><span>Welcome channel</span><select><option>#welcome</option><option>#general</option></select></label><label class="field"><span>Welcome message</span><textarea rows="4">Welcome {user} to {server}! You are member #{member_count}.</textarea></label><div class="message-preview"><span>PREVIEW</span><p><b>Welcome @NewMember to C4G Hub!</b><br>You are member #201.</p></div></section><section class="settings-panel" id="levels"><div class="panel-head"><div><span class="eyebrow">Progression</span><h2>XP and levels</h2></div><label class="switch"><input type="checkbox" checked><i></i></label></div><div class="two-fields"><label class="field"><span>XP per message</span><input type="number" value="10"></label><label class="field"><span>Cooldown (seconds)</span><input type="number" value="60"></label></div><label class="toggle-row"><span><b>Voice XP</b><small>Reward active members in voice channels.</small></span><input type="checkbox" checked></label><label class="toggle-row"><span><b>Level-up messages</b><small>Post a message when a member reaches a new level.</small></span><input type="checkbox" checked></label></section><section class="settings-panel locked-panel"><div><span class="eyebrow">C4G Pro</span><h2>Advanced analytics</h2><p>Unlock detailed command usage, member growth, economy reports and downloadable server insights.</p></div><a class="button small ghost" href="pricing.html">View plans</a></section></div></section></main></div><script src="api-config.js"></script>
-<script src="script.js"></script><script src="v3.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#09040f">
+  <title>Server Management | C4G Hub</title>
+  <link rel="icon" href="assets/c4g-logo.png">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="v3.css">
+</head>
+<body class="dashboard-page" data-dashboard-page="servers">
+<div class="dashboard-app">
+  <aside class="dash-sidebar">
+    <a class="dash-brand" href="index.html"><img src="assets/c4g-logo.png" alt="C4G Hub"><span><b>C4G HUB</b><small>CONTROL CENTRE</small></span></a>
+    <nav class="dash-nav">
+      <span>Workspace</span>
+      <a data-page="dashboard" href="dashboard.html">⌂ <b>Overview</b></a>
+      <a data-page="servers" href="server-dashboard.html">⚙ <b>Server management</b></a>
+      <a data-page="analytics" href="analytics.html">◫ <b>Analytics</b></a>
+      <span>Community</span>
+      <a data-page="leaderboard" href="leaderboard.html">♛ <b>Leaderboards</b></a>
+      <a data-page="economy" href="economy-dashboard.html">£ <b>Economy</b></a>
+      <a data-page="cs" href="cs-dashboard.html">◆ <b>CS collection</b></a>
+      <span>Services</span>
+      <a data-page="music" href="music-dashboard.html">♫ <b>Music control</b></a>
+      <a href="status.html">◌ <b>Bot status</b></a>
+      <a data-page="admin" href="admin-dashboard.html">⌘ <b>Admin panel</b></a>
+    </nav>
+    <div class="dash-sidebar-foot"><div class="mini-user"><div class="avatar-fallback">C</div><span><b data-c4g-username>Cal420</b><small>Private beta</small></span></div><button data-c4g-logout id="demoLogout" title="Sign out">↪</button></div>
+  </aside>
+
+  <main class="dash-main">
+    <header class="dash-top server-topbar">
+      <button class="dash-menu" aria-label="Toggle dashboard menu">☰</button>
+      <div class="server-selector">
+        <img src="assets/c4g-logo.png" alt="">
+        <div><span class="eyebrow">Managing server</span><h1>C4G Hub</h1></div>
+        <button class="server-chevron" aria-label="Change server">⌄</button>
+      </div>
+      <div class="top-actions"><span class="save-state" id="saveState">All changes saved</span><button class="button small primary" id="saveSettings">Save changes</button></div>
+    </header>
+
+    <section class="server-command-bar">
+      <button class="active" data-server-tab="overview">⌂ Overview</button>
+      <button data-server-tab="members">♙ Members</button>
+      <button data-server-tab="moderation">🛡 Moderation</button>
+      <button data-server-tab="music">♫ Music</button>
+      <button data-server-tab="economy">£ Economy</button>
+      <button data-server-tab="levels">★ Levels</button>
+      <button data-server-tab="cs">◆ CS features</button>
+      <button data-server-tab="logs">☷ Logs</button>
+      <button data-server-tab="settings">⚙ Settings</button>
+    </section>
+
+    <section class="dash-content server-workspace">
+      <section class="server-tab-panel active" data-server-panel="overview">
+        <div class="server-hero-card">
+          <div class="server-identity"><img src="assets/c4g-logo.png" alt=""><div><span class="eyebrow">Private community</span><h2>C4G Hub</h2><p>Manage every C4G Bot module from one control centre.</p></div></div>
+          <div class="server-health"><span class="status-orb"></span><b>All systems operational</b><small>Bot version v0.9 beta</small></div>
+        </div>
+
+        <div class="server-stat-grid">
+          <article><span>Members</span><b>200</b><small class="positive">+12 this month</small></article>
+          <article><span>Online now</span><b>34</b><small>17% of members</small></article>
+          <article><span>Commands today</span><b>1,284</b><small class="positive">+8.4%</small></article>
+          <article><span>Bot latency</span><b>24ms</b><small class="positive">Excellent</small></article>
+        </div>
+
+        <div class="server-overview-grid">
+          <section class="settings-panel module-panel">
+            <div class="panel-head"><div><span class="eyebrow">Modules</span><h2>Feature status</h2></div><button class="text-button" data-open-panel="settings">Manage all</button></div>
+            <div class="module-list">
+              <article><span class="module-icon">🛡</span><div><b>Moderation</b><small>Automod, warnings and logging</small></div><label class="switch"><input type="checkbox" checked><i></i></label></article>
+              <article><span class="module-icon">★</span><div><b>Levels</b><small>Message and voice XP</small></div><label class="switch"><input type="checkbox" checked><i></i></label></article>
+              <article><span class="module-icon">£</span><div><b>Economy</b><small>Credits, shop and rewards</small></div><label class="switch"><input type="checkbox" checked><i></i></label></article>
+              <article><span class="module-icon">♫</span><div><b>Music</b><small>Three-worker music system</small></div><label class="switch"><input type="checkbox" checked><i></i></label></article>
+              <article><span class="module-icon">◆</span><div><b>CS features</b><small>Cases, inventory and combat</small></div><label class="switch"><input type="checkbox" checked><i></i></label></article>
+            </div>
+          </section>
+
+          <section class="settings-panel activity-panel">
+            <div class="panel-head"><div><span class="eyebrow">Live activity</span><h2>Recent events</h2></div><button class="text-button" data-open-panel="logs">View logs</button></div>
+            <div class="server-activity-list">
+              <article><span>★</span><div><b>PixelKnight reached level 24</b><small>2 minutes ago</small></div></article>
+              <article><span>🛡</span><div><b>Automod blocked repeated spam</b><small>9 minutes ago</small></div></article>
+              <article><span>♫</span><div><b>Music Bot 1 started a session</b><small>14 minutes ago</small></div></article>
+              <article><span>◆</span><div><b>Cal420 opened a Classified case</b><small>27 minutes ago</small></div></article>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="server-tab-panel" data-server-panel="members">
+        <div class="panel-head page-panel-head"><div><span class="eyebrow">Community</span><h2>Member management</h2><p>Search members, review activity and manage access.</p></div><button class="button small primary">Export member list</button></div>
+        <div class="member-toolbar"><label class="search-box">⌕ <input id="memberSearch" placeholder="Search username or Discord ID"></label><select><option>All roles</option><option>Owner</option><option>Administrator</option><option>Moderator</option><option>Member</option></select><select><option>Recently active</option><option>Highest level</option><option>Highest balance</option></select></div>
+        <section class="settings-panel member-table-panel"><div class="member-table">
+          <div class="table-head"><span>Member</span><span>Role</span><span>Level</span><span>Credits</span><span>Status</span><span></span></div>
+          <div data-member-row><span class="member-cell"><i>C</i><b>Cal420<small>Owner · ID 2535415945495228</small></b></span><span><em class="role-pill owner">Owner</em></span><span>42</span><span>153,420</span><span class="positive">Online</span><button>•••</button></div>
+          <div data-member-row><span class="member-cell"><i>P</i><b>PixelKnight<small>Joined 3 months ago</small></b></span><span><em class="role-pill mod">Moderator</em></span><span>24</span><span>38,600</span><span class="positive">Online</span><button>•••</button></div>
+          <div data-member-row><span class="member-cell"><i>N</i><b>NovaByte<small>Joined 5 months ago</small></b></span><span><em class="role-pill member">Member</em></span><span>19</span><span>17,240</span><span>Idle</span><button>•••</button></div>
+          <div data-member-row><span class="member-cell"><i>V</i><b>VoidRunner<small>Joined 8 months ago</small></b></span><span><em class="role-pill member">Member</em></span><span>17</span><span>12,810</span><span>Offline</span><button>•••</button></div>
+        </div></section>
+      </section>
+
+      <section class="server-tab-panel" data-server-panel="moderation">
+        <div class="panel-head page-panel-head"><div><span class="eyebrow">Safety</span><h2>Moderation centre</h2><p>Configure automod, punishments and staff notifications.</p></div><span class="tag green">Protection active</span></div>
+        <div class="settings-grid-two">
+          <section class="settings-panel"><div class="panel-head"><div><h2>Auto moderation</h2><p>Automatically respond to harmful behaviour.</p></div><label class="switch"><input type="checkbox" checked><i></i></label></div>
+            <label class="toggle-row"><span><b>Spam protection</b><small>Block repeated messages and rapid mentions.</small></span><input type="checkbox" checked></label>
+            <label class="toggle-row"><span><b>Invite filtering</b><small>Remove unauthorised Discord invite links.</small></span><input type="checkbox" checked></label>
+            <label class="toggle-row"><span><b>Blocked words</b><small>Use the server's custom word list.</small></span><input type="checkbox" checked></label>
+            <label class="toggle-row"><span><b>Raid detection</b><small>Detect unusual join and message spikes.</small></span><input type="checkbox" checked></label>
+          </section>
+          <section class="settings-panel"><div class="panel-head"><div><h2>Moderation defaults</h2><p>Choose default channels and punishment behaviour.</p></div></div>
+            <label class="field"><span>Moderation log channel</span><select><option>#moderation-logs</option><option>#staff-room</option></select></label>
+            <label class="field"><span>Mute role</span><select><option>Muted</option></select></label>
+            <label class="field"><span>Warning expiry</span><select><option>Never</option><option>30 days</option><option>90 days</option></select></label>
+          </section>
+        </div>
+      </section>
+
+      <section class="server-tab-panel" data-server-panel="music">
+        <div class="panel-head page-panel-head"><div><span class="eyebrow">Audio</span><h2>Music settings</h2><p>Control worker access, limits and playback defaults.</p></div><a class="button small ghost" href="music-dashboard.html">Open live music centre</a></div>
+        <div class="settings-grid-two">
+          <section class="settings-panel"><label class="field"><span>DJ role</span><select><option>Music Controller</option><option>Moderator</option></select></label><label class="field"><span>Music request channel</span><select><option>#music-commands</option></select></label><div class="two-fields"><label class="field"><span>Default volume</span><input type="number" value="65" min="1" max="100"></label><label class="field"><span>Maximum queue size</span><input type="number" value="100"></label></div><label class="toggle-row"><span><b>24/7 mode</b><small>Keep a worker connected while idle.</small></span><input type="checkbox"></label></section>
+          <section class="settings-panel worker-summary"><h2>Worker availability</h2><article><span class="status-orb"></span><div><b>Music Bot 1</b><small>Active in 1 voice channel</small></div><em>Online</em></article><article><span class="status-orb"></span><div><b>Music Bot 2</b><small>Ready for a session</small></div><em>Online</em></article><article><span class="status-orb"></span><div><b>Music Bot 3</b><small>Ready for a session</small></div><em>Online</em></article></section>
+        </div>
+      </section>
+
+      <section class="server-tab-panel" data-server-panel="economy">
+        <div class="panel-head page-panel-head"><div><span class="eyebrow">Rewards</span><h2>Economy settings</h2><p>Manage starting balances, rewards and transaction limits.</p></div><a class="button small ghost" href="economy-dashboard.html">Open economy centre</a></div>
+        <div class="settings-grid-two"><section class="settings-panel"><div class="two-fields"><label class="field"><span>Starting credits</span><input type="number" value="1000"></label><label class="field"><span>Daily reward</span><input type="number" value="500"></label></div><div class="two-fields"><label class="field"><span>Weekly reward</span><input type="number" value="2500"></label><label class="field"><span>Transfer tax (%)</span><input type="number" value="2"></label></div><label class="toggle-row"><span><b>Member-to-member transfers</b><small>Allow users to send credits.</small></span><input type="checkbox" checked></label></section><section class="settings-panel"><h2>Economy health</h2><div class="economy-health"><article><span>Total circulation</span><b>£4.82M</b></article><article><span>Transactions today</span><b>384</b></article><article><span>Average balance</span><b>24,100</b></article></div><p class="muted-note">Values are demonstration data until the live database is connected.</p></section></div>
+      </section>
+
+      <section class="server-tab-panel" data-server-panel="levels">
+        <div class="panel-head page-panel-head"><div><span class="eyebrow">Progression</span><h2>XP and levels</h2><p>Fine-tune how members earn XP and unlock roles.</p></div></div>
+        <div class="settings-grid-two"><section class="settings-panel"><div class="panel-head"><div><h2>XP earning</h2></div><label class="switch"><input type="checkbox" checked><i></i></label></div><div class="two-fields"><label class="field"><span>XP per message</span><input type="number" value="10"></label><label class="field"><span>Cooldown (seconds)</span><input type="number" value="60"></label></div><label class="toggle-row"><span><b>Voice XP</b><small>Reward active members every 15 minutes.</small></span><input type="checkbox" checked></label><label class="toggle-row"><span><b>Streaming multiplier</b><small>Grant bonus XP while streaming.</small></span><input type="checkbox" checked></label></section><section class="settings-panel"><h2>Level rewards</h2><div class="reward-list"><article><b>Level 5</b><span>Active Member</span><button>Change</button></article><article><b>Level 15</b><span>Trusted Member</span><button>Change</button></article><article><b>Level 30</b><span>Veteran</span><button>Change</button></article><button class="button small ghost full">Add level reward</button></div></section></div>
+      </section>
+
+      <section class="server-tab-panel" data-server-panel="cs">
+        <div class="panel-head page-panel-head"><div><span class="eyebrow">Gaming</span><h2>CS feature controls</h2><p>Configure cases, combat and marketplace systems.</p></div><a class="button small ghost" href="cs-dashboard.html">Open CS dashboard</a></div>
+        <div class="settings-grid-two"><section class="settings-panel module-list compact"><article><span class="module-icon">▣</span><div><b>Case opening</b><small>Cases, keys and rarity drops</small></div><label class="switch"><input type="checkbox" checked><i></i></label></article><article><span class="module-icon">⚔</span><div><b>Combat</b><small>1v1, Wingman, Competitive and Premier</small></div><label class="switch"><input type="checkbox" checked><i></i></label></article><article><span class="module-icon">⇄</span><div><b>Trading</b><small>Protected player-to-player exchanges</small></div><label class="switch"><input type="checkbox" checked><i></i></label></article><article><span class="module-icon">£</span><div><b>Marketplace</b><small>Buy and sell community skins</small></div><label class="switch"><input type="checkbox" checked><i></i></label></article></section><section class="settings-panel"><label class="field"><span>CS command channel</span><select><option>#cs-games</option><option>#cs-combat</option></select></label><label class="field"><span>Combat cooldown (hours)</span><input type="number" value="2"></label><label class="field"><span>Marketplace fee (%)</span><input type="number" value="5"></label></section></div>
+      </section>
+
+      <section class="server-tab-panel" data-server-panel="logs">
+        <div class="panel-head page-panel-head"><div><span class="eyebrow">Audit</span><h2>Server logs</h2><p>Review moderation, configuration and member activity.</p></div><button class="button small ghost">Download logs</button></div>
+        <section class="settings-panel"><div class="log-filter-row"><select><option>All event types</option><option>Moderation</option><option>Members</option><option>Settings</option><option>Economy</option></select><label class="search-box">⌕ <input placeholder="Search event logs"></label></div><div class="audit-list"><div><span class="audit-icon">⚙</span><div><p><b>Cal420</b> updated server settings.</p><small>Today at 20:14</small></div><strong>SETTINGS</strong></div><div><span class="audit-icon">🛡</span><div><p><b>PixelKnight</b> warned NovaByte.</p><small>Today at 19:52</small></div><strong>MODERATION</strong></div><div><span class="audit-icon">↗</span><div><p><b>NewMember</b> joined through Cal420's invite.</p><small>Today at 18:27</small></div><strong>MEMBER</strong></div><div><span class="audit-icon">£</span><div><p><b>Economy system</b> issued the daily reward.</p><small>Today at 17:00</small></div><strong>ECONOMY</strong></div></div></section>
+      </section>
+
+      <section class="server-tab-panel" data-server-panel="settings">
+        <div class="panel-head page-panel-head"><div><span class="eyebrow">Configuration</span><h2>General server settings</h2><p>Set channels, language, notifications and welcome behaviour.</p></div></div>
+        <div class="settings-grid-two"><section class="settings-panel"><label class="field"><span>Command prefix</span><input value="!" maxlength="5"></label><label class="field"><span>Default language</span><select><option>English (United Kingdom)</option></select></label><label class="toggle-row"><span><b>Slash commands</b><small>Enable Discord application commands.</small></span><input type="checkbox" checked></label><label class="toggle-row"><span><b>Maintenance alerts</b><small>Notify administrators about downtime.</small></span><input type="checkbox" checked></label></section><section class="settings-panel"><div class="panel-head"><div><h2>Welcome system</h2></div><label class="switch"><input type="checkbox" checked><i></i></label></div><label class="field"><span>Welcome channel</span><select><option>#welcome</option><option>#general</option></select></label><label class="field"><span>Welcome message</span><textarea rows="4">Welcome {user} to {server}! You are member #{member_count}.</textarea></label><div class="message-preview"><span>PREVIEW</span><p><b>Welcome @NewMember to C4G Hub!</b><br>You are member #201.</p></div></section></div>
+        <section class="settings-panel danger-zone"><div><span class="eyebrow">Danger zone</span><h2>Disconnect C4G Bot</h2><p>This removes dashboard access and stops all C4G modules for this server.</p></div><button class="button small danger">Disconnect bot</button></section>
+      </section>
+    </section>
+  </main>
+</div>
+<script src="api-config.js"></script><script src="script.js"></script><script src="v3.js"></script>
+</body>
+</html>
