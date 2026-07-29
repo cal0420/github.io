@@ -1,0 +1,1 @@
+const DISCORD_INVITE_URL="https://discord.gg/YOUR-INVITE-CODE";document.querySelectorAll("[data-discord]").forEach(a=>a.addEventListener("click",e=>{if(DISCORD_INVITE_URL.includes("YOUR-INVITE-CODE")){e.preventDefault();alert("Add your Discord invite URL in script.js first.")}else a.href=DISCORD_INVITE_URL;}));
