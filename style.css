@@ -110,10 +110,19 @@ a {
   align-items: center;
   position: relative;
   overflow: hidden;
-  background:
-    linear-gradient(90deg, rgba(3, 2, 7, 0.97), rgba(4, 2, 8, 0.65) 42%, rgba(4, 2, 8, 0.18) 72%, rgba(4, 2, 8, 0.72)),
-    linear-gradient(180deg, transparent 60%, #050309),
-    url("assets/c4g-banner.png") center / cover no-repeat;
+
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(3, 2, 7, 0.75),
+      rgba(4, 2, 8, 0.45),
+      rgba(4, 2, 8, 0.15)
+    ),
+    url("./assets/c4g-banner.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .hero-copy {
