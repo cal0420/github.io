@@ -1,1 +1,7 @@
-const DISCORD_INVITE_URL="https://discord.gg/c4ghub";document.querySelectorAll("[data-discord]").forEach(a=>a.addEventListener("click",e=>{if(DISCORD_INVITE_URL.includes("c4ghub")){e.preventDefault();alert("Add your Discord invite URL in script.js first.")}else a.href=c4ghub;}));
+const DISCORD_INVITE_URL = "https://discord.gg/c4ghub";
+
+document.querySelectorAll("[data-discord]").forEach(link => {
+    link.addEventListener("click", () => {
+        link.href = DISCORD_INVITE_URL;
+    });
+});
