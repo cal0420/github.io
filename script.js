@@ -4,3 +4,42 @@ const demoLogin=document.querySelector('#demoLogin');demoLogin?.addEventListener
 const demoLogout=document.querySelector('#demoLogout');demoLogout?.addEventListener('click',()=>{localStorage.removeItem('c4gDemoSession');location.href='login.html'});
 const dashMenu=document.querySelector('.dash-menu'),dashSidebar=document.querySelector('.dash-sidebar');dashMenu?.addEventListener('click',()=>dashSidebar?.classList.toggle('open'));
 const saveSettings=document.querySelector('#saveSettings'),saveState=document.querySelector('#saveState');document.querySelectorAll('.settings-panel input,.settings-panel select,.settings-panel textarea').forEach(el=>el.addEventListener('input',()=>{if(saveState){saveState.textContent='Unsaved changes';saveState.style.color='var(--amber)'}}));saveSettings?.addEventListener('click',()=>{saveSettings.textContent='Saved ✓';if(saveState){saveState.textContent='All changes saved';saveState.style.color='var(--green)'}setTimeout(()=>saveSettings.textContent='Save changes',1400)});
+
+// C4G live backend integration
+const C4G_API = (window.C4G_API_URL || "http://localhost:8000").replace(/\/$/, "");
+
+async function c4gFetch(path, options = {}) {
+  const response = await fetch(`${C4G_API}${path}`, {
+    credentials: "include",
+    ...options,
+    headers: { "Content-Type": "application/json", ...(options.headers || {}) }
+  });
+  if (!response.ok) throw new Error(`Request failed: ${response.status}`);
+  return response.status === 204 ? null : response.json();
+}
+
+function c4gLogin() {
+  window.location.href = `${C4G_API}/auth/login`;
+}
+
+async function c4gLogout() {
+  await c4gFetch("/auth/logout", { method: "POST" });
+  window.location.href = "index.html";
+}
+
+async function loadC4GProfile() {
+  if (!document.body.classList.contains("dashboard-page") && !location.pathname.endsWith("dashboard.html")) return;
+  try {
+    const user = await c4gFetch("/api/me");
+    document.querySelectorAll("[data-c4g-username]").forEach(el => el.textContent = user.global_name || user.username);
+    document.querySelectorAll("[data-c4g-avatar]").forEach(el => { if (user.avatar_url) el.src = user.avatar_url; });
+  } catch (error) {
+    console.warn("C4G session unavailable", error);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("[data-c4g-login]").forEach(el => el.addEventListener("click", c4gLogin));
+  document.querySelectorAll("[data-c4g-logout]").forEach(el => el.addEventListener("click", c4gLogout));
+  loadC4GProfile();
+});
