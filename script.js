@@ -747,6 +747,140 @@ async function loadC4GCsDashboard() {
 }
 
 
+
+/* ==========================================================================
+   Live overview dashboard
+   ========================================================================== */
+
+function c4gNumber(value) {
+    const number = Number(value || 0);
+    return Number.isFinite(number) ? number.toLocaleString("en-GB") : "0";
+}
+
+function c4gMoney(value) {
+    const number = Number(value || 0);
+    return new Intl.NumberFormat("en-GB", {
+        style: "currency",
+        currency: "GBP",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+    }).format(Number.isFinite(number) ? number : 0);
+}
+
+function c4gDuration(minutes) {
+    const totalMinutes = Math.max(0, Number(minutes || 0));
+    const hours = Math.floor(totalMinutes / 60);
+    const remaining = Math.floor(totalMinutes % 60);
+
+    if (hours <= 0) return `${remaining}m`;
+    return `${hours}h ${remaining}m`;
+}
+
+function c4gSetText(selector, value) {
+    document.querySelectorAll(selector).forEach((element) => {
+        element.textContent = value;
+    });
+}
+
+async function loadC4GOverviewDashboard() {
+    if (document.body.dataset.dashboardPage !== "dashboard") return;
+
+    const [dashboard, statuses] = await Promise.all([
+        c4gFetch("/api/dashboard"),
+        c4gFetch("/api/public/status").catch(() => [])
+    ]);
+
+    const profile = dashboard?.profile || {};
+    const economy = dashboard?.economy || {};
+    const voice = dashboard?.voice || {};
+    const games = dashboard?.games || {};
+    const combat = dashboard?.combat || {};
+    const skins = Array.isArray(dashboard?.cs_inventory)
+        ? dashboard.cs_inventory
+        : [];
+    const cases = Array.isArray(dashboard?.cs_cases)
+        ? dashboard.cs_cases
+        : [];
+
+    const collectionValue = skins.reduce(
+        (total, item) => total + Number(item.server_value || 0),
+        0
+    );
+
+    const caseCount = cases.reduce(
+        (total, item) => total + Number(item.amount || 0),
+        0
+    );
+
+    const botStatus = Array.isArray(statuses) && statuses.length
+        ? statuses.find((item) => item.bot_name === "C4G Bot") || statuses[0]
+        : null;
+
+    const level = Number(profile.level || 1);
+    const xp = Number(profile.xp || 0);
+    const xpNeeded = Math.max(100, level * 100);
+    const xpPercent = Math.max(0, Math.min(100, (xp / xpNeeded) * 100));
+
+    c4gSetText("[data-overview-credits]", c4gMoney(economy.credits || 0));
+    c4gSetText("[data-overview-level]", c4gNumber(level));
+    c4gSetText("[data-overview-xp]", `${c4gNumber(xp)} / ${c4gNumber(xpNeeded)}`);
+    c4gSetText("[data-overview-messages]", c4gNumber(profile.messages || 0));
+    c4gSetText(
+        "[data-overview-voice]",
+        c4gDuration(
+            voice.total_minutes ??
+            (Number(voice.voice_minutes || 0) + Number(voice.stream_minutes || 0))
+        )
+    );
+    c4gSetText("[data-overview-games]", c4gNumber(games.games_played || 0));
+    c4gSetText("[data-overview-game-wins]", c4gNumber(games.games_won || 0));
+    c4gSetText("[data-overview-rating]", c4gNumber(combat.premier_rating || 1000));
+    c4gSetText(
+        "[data-overview-combat-record]",
+        `${c4gNumber(combat.wins || 0)}W / ${c4gNumber(combat.losses || 0)}L`
+    );
+    c4gSetText("[data-overview-cs-value]", c4gMoney(collectionValue));
+    c4gSetText("[data-overview-skins]", c4gNumber(skins.length));
+    c4gSetText("[data-overview-cases]", c4gNumber(caseCount));
+
+    c4gSetText(
+        "[data-overview-bot-status]",
+        botStatus?.online ? "Online" : "Offline"
+    );
+    c4gSetText(
+        "[data-overview-latency]",
+        botStatus?.latency_ms != null ? `${c4gNumber(botStatus.latency_ms)}ms` : "—"
+    );
+    c4gSetText(
+        "[data-overview-guilds]",
+        c4gNumber(botStatus?.guild_count || 0)
+    );
+    c4gSetText(
+        "[data-overview-users]",
+        c4gNumber(botStatus?.user_count || 0)
+    );
+
+    document.querySelectorAll("[data-overview-xp-bar]").forEach((bar) => {
+        bar.style.width = `${xpPercent}%`;
+        bar.setAttribute("aria-valuenow", String(Math.round(xpPercent)));
+    });
+
+    document.querySelectorAll("[data-overview-sync]").forEach((element) => {
+        const updatedAt = dashboard?._sync?.updated_at;
+
+        if (!updatedAt) {
+            element.textContent = "Waiting for first sync";
+            return;
+        }
+
+        const date = new Date(updatedAt);
+        element.textContent = Number.isNaN(date.getTime())
+            ? "Synced"
+            : `Last synced ${date.toLocaleString("en-GB")}`;
+    });
+}
+
+
 /* ==========================================================================
    Dashboard authentication bootstrap
    ========================================================================== */
@@ -787,6 +921,7 @@ async function initialiseDashboard() {
         await loadC4GProfile();
         await loadC4GGuilds();
         await loadC4GCsDashboard();
+        await loadC4GOverviewDashboard();
     } catch (error) {
         console.warn("C4G dashboard could not initialise", error);
 
