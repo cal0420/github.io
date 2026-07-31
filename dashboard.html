@@ -4,100 +4,194 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#09040f">
-<title>CS collection | C4G Hub</title>
+<title>Overview | C4G Hub</title>
 <link rel="icon" href="assets/c4g-logo.png">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="v3.css">
 </head>
-<body class="dashboard-page" data-dashboard-page="cs">
+<body class="dashboard-page" data-dashboard-page="dashboard">
 <div class="dashboard-app">
 <aside class="dash-sidebar">
-<a class="dash-brand" href="index.html"><img src="assets/c4g-logo.png" alt="C4G Hub"><span><b>C4G HUB</b><small>CONTROL CENTRE</small></span></a>
+<a class="dash-brand" href="index.html">
+<img src="assets/c4g-logo.png" alt="C4G Hub">
+<span><b>C4G HUB</b><small>CONTROL CENTRE</small></span>
+</a>
+
 <nav class="dash-nav">
 <span>Workspace</span>
 <a data-page="dashboard" href="dashboard.html">⌂ <b>Overview</b></a>
 <a data-page="servers" href="server-dashboard.html">⚙ <b>Server settings</b></a>
 <a data-page="analytics" href="analytics.html">◫ <b>Analytics</b></a>
+
 <span>Community</span>
 <a data-page="leaderboard" href="leaderboard.html">♛ <b>Leaderboards</b></a>
 <a data-page="economy" href="economy-dashboard.html">£ <b>Economy</b></a>
 <a data-page="cs" href="cs-dashboard.html">◆ <b>CS collection</b></a>
+
 <span>Services</span>
 <a data-page="music" href="music-dashboard.html">♫ <b>Music control</b></a>
 <a href="status.html">◌ <b>Bot status</b></a>
 <a data-page="admin" href="admin-dashboard.html">⌘ <b>Admin panel</b></a>
 </nav>
+
 <div class="dash-sidebar-foot">
-<div class="mini-user"><div class="avatar-fallback">C</div><span><b data-c4g-username>Loading…</b><small>Discord connected</small></span></div>
+<div class="mini-user">
+<div class="avatar-fallback">C</div>
+<span>
+<b data-c4g-username>Loading…</b>
+<small data-c4g-status>Connecting…</small>
+</span>
+</div>
 <button data-c4g-logout id="demoLogout" title="Sign out">↪</button>
 </div>
 </aside>
+
 <main class="dash-main">
 <header class="dash-top">
 <button class="dash-menu" aria-label="Toggle dashboard menu">☰</button>
-<div><span class="eyebrow">C4G Control Centre</span><h1>CS collection</h1></div>
-<div class="top-actions"><button class="icon-button" title="Notifications">●</button><a class="button small ghost" href="index.html">View site</a></div>
+<div>
+<span class="eyebrow">C4G Control Centre</span>
+<h1>Overview</h1>
+</div>
+<div class="top-actions">
+<button class="icon-button" title="Notifications">●</button>
+<a class="button small ghost" href="index.html">View site</a>
+</div>
 </header>
+
 <section class="dash-content">
-<div class="dashboard-banner cs-hero">
-<div><span class="tag purple">C4G Cases</span><h2>Your collection. Your market. Your grind.</h2><p>Your real CS collection is loaded from the C4G Bot database.</p></div>
-<div class="collection-value"><span>Collection value</span><b data-cs-collection-value>Loading…</b><small><span data-cs-skin-count>0</span> skins · <span data-cs-case-count>0</span> cases</small></div>
+<div class="dashboard-banner">
+<div>
+<span class="tag purple">Live dashboard</span>
+<h2>Welcome back, <span data-c4g-username>Discord user</span>.</h2>
+<p>Your progression, economy, CS collection and bot activity are synced from C4G Bot.</p>
+</div>
+<div class="collection-value">
+<span>Available credits</span>
+<b data-overview-credits>Loading…</b>
+<small data-overview-sync>Checking sync…</small>
+</div>
+</div>
+
+<div class="dash-stat-grid">
+<article>
+<span>Level</span>
+<b data-overview-level>—</b>
+<small>Current progression level</small>
+</article>
+<article>
+<span>Messages</span>
+<b data-overview-messages>—</b>
+<small>XP-earning messages</small>
+</article>
+<article>
+<span>Voice time</span>
+<b data-overview-voice>—</b>
+<small>Voice and streaming combined</small>
+</article>
+<article>
+<span>Games played</span>
+<b data-overview-games>—</b>
+<small><span data-overview-game-wins>0</span> wins recorded</small>
+</article>
+</div>
+
+<div class="dash-panel">
+<div class="panel-head">
+<div>
+<span class="eyebrow">Progression</span>
+<h2>Level progress</h2>
+</div>
+<b data-overview-xp>—</b>
+</div>
+<div style="height:12px;background:rgba(255,255,255,.08);border-radius:999px;overflow:hidden">
+<div
+data-overview-xp-bar
+role="progressbar"
+aria-valuemin="0"
+aria-valuemax="100"
+aria-valuenow="0"
+style="height:100%;width:0;background:linear-gradient(90deg,#a855f7,#d8b4fe);border-radius:inherit;transition:width .35s ease"
+></div>
+</div>
+</div>
+
+<div class="dash-grid">
+<div class="dash-panel">
+<div class="panel-head">
+<div>
+<span class="eyebrow">CS collection</span>
+<h2>Collection snapshot</h2>
+</div>
+<a class="text-button" href="cs-dashboard.html">View collection →</a>
 </div>
 <div class="dash-stat-grid">
-<article><span>Owned skins</span><b data-cs-skin-count>0</b><small>Synced from your inventory</small></article>
-<article><span>Owned cases</span><b data-cs-case-count>0</b><small>All quantities combined</small></article>
-<article><span>Premier rating</span><b data-cs-combat-rating>1000</b><small>Current combat rating</small></article>
-<article><span>Combat record</span><b data-cs-combat-record>0W / 0L</b><small>Recorded combat results</small></article>
+<article>
+<span>Total value</span>
+<b data-overview-cs-value>—</b>
+</article>
+<article>
+<span>Owned skins</span>
+<b data-overview-skins>—</b>
+</article>
+<article>
+<span>Owned cases</span>
+<b data-overview-cases>—</b>
+</article>
 </div>
-<div class="dash-tabs">
-<button class="active" data-cs-tab="inventory">Inventory</button>
-<button data-cs-tab="cases">Cases</button>
-<button data-cs-tab="combat">Combat</button>
 </div>
-<section data-cs-panel="inventory">
-<div class="inventory-toolbar">
-<div class="search-box">⌕ <input data-cs-search type="search" placeholder="Search skins..."></div>
-<select data-cs-rarity-filter>
-<option value="all">All rarities</option>
-<option value="consumer-grade">Consumer Grade</option>
-<option value="industrial-grade">Industrial Grade</option>
-<option value="mil-spec">Mil-Spec</option>
-<option value="restricted">Restricted</option>
-<option value="classified">Classified</option>
-<option value="covert">Covert</option>
-<option value="contraband">Contraband</option>
-<option value="rare">Rare</option>
-<option value="legendary">Legendary</option>
-</select>
-<select data-cs-sort>
-<option value="value-desc">Value: high to low</option>
-<option value="value-asc">Value: low to high</option>
-<option value="name-asc">Name: A to Z</option>
-<option value="newest">Newest first</option>
-</select>
-</div>
-<div class="skin-grid" data-cs-inventory><p>Loading your CS inventory…</p></div>
-<p class="empty-state" data-cs-empty hidden>No matching CS skins were found.</p>
-</section>
-<section data-cs-panel="cases" hidden>
+
 <div class="dash-panel">
-<div class="panel-head"><div><span class="eyebrow">Case storage</span><h2>Your owned cases</h2></div></div>
-<div class="dash-grid" data-cs-cases><p>Loading your cases…</p></div>
-<p class="empty-state" data-cs-cases-empty hidden>You do not currently own any cases.</p>
+<div class="panel-head">
+<div>
+<span class="eyebrow">Combat</span>
+<h2>Current performance</h2>
 </div>
-</section>
-<section data-cs-panel="combat" hidden>
-<div class="dash-panel">
-<div class="panel-head"><div><span class="eyebrow">Combat profile</span><h2>Your current performance</h2></div></div>
+</div>
 <div class="dash-stat-grid">
-<article><span>Premier rating</span><b data-cs-combat-rating>1000</b></article>
-<article><span>Record</span><b data-cs-combat-record>0W / 0L</b></article>
+<article>
+<span>Premier rating</span>
+<b data-overview-rating>—</b>
+</article>
+<article>
+<span>Record</span>
+<b data-overview-combat-record>—</b>
+</article>
 </div>
 </div>
-</section>
+</div>
+
+<div class="dash-panel">
+<div class="panel-head">
+<div>
+<span class="eyebrow">Bot network</span>
+<h2>Live bot status</h2>
+</div>
+<a class="text-button" href="status.html">Full status →</a>
+</div>
+<div class="dash-stat-grid">
+<article>
+<span>Status</span>
+<b data-overview-bot-status>—</b>
+</article>
+<article>
+<span>Latency</span>
+<b data-overview-latency>—</b>
+</article>
+<article>
+<span>Servers</span>
+<b data-overview-guilds>—</b>
+</article>
+<article>
+<span>Users</span>
+<b data-overview-users>—</b>
+</article>
+</div>
+</div>
 </section>
 </main>
 </div>
+
 <script src="api-config.js"></script>
 <script src="script.js"></script>
 <script src="v3.js"></script>
