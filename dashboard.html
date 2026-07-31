@@ -1,1 +1,105 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#09040f"><title>CS collection | C4G Hub</title><link rel="icon" href="assets/c4g-logo.png"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="v3.css"></head><body class="dashboard-page" data-dashboard-page="cs"><div class="dashboard-app"><aside class="dash-sidebar"><a class="dash-brand" href="index.html"><img src="assets/c4g-logo.png" alt="C4G Hub"><span><b>C4G HUB</b><small>CONTROL CENTRE</small></span></a><nav class="dash-nav"><span>Workspace</span><a data-page="dashboard" href="dashboard.html">⌂ <b>Overview</b></a><a data-page="servers" href="server-dashboard.html">⚙ <b>Server settings</b></a><a data-page="analytics" href="analytics.html">◫ <b>Analytics</b></a><span>Community</span><a data-page="leaderboard" href="leaderboard.html">♛ <b>Leaderboards</b></a><a data-page="economy" href="economy-dashboard.html">£ <b>Economy</b></a><a data-page="cs" href="cs-dashboard.html">◆ <b>CS collection</b></a><span>Services</span><a data-page="music" href="music-dashboard.html">♫ <b>Music control</b></a><a href="status.html">◌ <b>Bot status</b></a><a data-page="admin" href="admin-dashboard.html">⌘ <b>Admin panel</b></a></nav><div class="dash-sidebar-foot"><div class="mini-user"><div class="avatar-fallback">C</div><span><b data-c4g-username>Cal420</b><small>Private beta</small></span></div><button data-c4g-logout id="demoLogout" title="Sign out">↪</button></div></aside><main class="dash-main"><header class="dash-top"><button class="dash-menu" aria-label="Toggle dashboard menu">☰</button><div><span class="eyebrow">C4G Control Centre</span><h1>CS collection</h1></div><div class="top-actions"><button class="icon-button" title="Notifications">●</button><a class="button small ghost" href="index.html">View site</a></div></header><section class="dash-content"><div class="dashboard-banner cs-hero"><div><span class="tag purple">C4G Cases</span><h2>Your collection. Your market. Your grind.</h2><p>Open cases, track skin values, review trades and compare combat rankings.</p></div><div class="collection-value"><span>Collection value</span><b>£12,480.32</b><small>+£642.18 this month</small></div></div><div class="dash-tabs"><button class="active">Inventory</button><button>Cases</button><button>Trades</button><button>Combat</button></div><div class="inventory-toolbar"><div class="search-box">⌕ <input placeholder="Search skins..."></div><select><option>All rarities</option><option>Legendary</option><option>Rare</option></select><select><option>Value: high to low</option></select></div><div class="skin-grid"><article><span class="rarity legendary">Legendary</span><div class="skin-visual gold">AWP</div><h3>Dragon Lore</h3><p>Factory New</p><footer><b>£8,742.15</b><small>+4.2%</small></footer></article><article><span class="rarity rare">Rare</span><div class="skin-visual purple">AK-47</div><h3>Neon Rider</h3><p>Minimal Wear</p><footer><b>£124.68</b><small>+1.8%</small></footer></article><article><span class="rarity rare">Rare</span><div class="skin-visual blue">M4A1-S</div><h3>Printstream</h3><p>Field-Tested</p><footer><b>£218.40</b><small>-0.4%</small></footer></article><article><span class="rarity uncommon">Uncommon</span><div class="skin-visual green">USP-S</div><h3>Kill Confirmed</h3><p>Well-Worn</p><footer><b>£46.18</b><small>+2.6%</small></footer></article></div></section></main></div><script src="api-config.js"></script><script src="script.js"></script><script src="v3.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#09040f">
+<title>CS collection | C4G Hub</title>
+<link rel="icon" href="assets/c4g-logo.png">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="v3.css">
+</head>
+<body class="dashboard-page" data-dashboard-page="cs">
+<div class="dashboard-app">
+<aside class="dash-sidebar">
+<a class="dash-brand" href="index.html"><img src="assets/c4g-logo.png" alt="C4G Hub"><span><b>C4G HUB</b><small>CONTROL CENTRE</small></span></a>
+<nav class="dash-nav">
+<span>Workspace</span>
+<a data-page="dashboard" href="dashboard.html">⌂ <b>Overview</b></a>
+<a data-page="servers" href="server-dashboard.html">⚙ <b>Server settings</b></a>
+<a data-page="analytics" href="analytics.html">◫ <b>Analytics</b></a>
+<span>Community</span>
+<a data-page="leaderboard" href="leaderboard.html">♛ <b>Leaderboards</b></a>
+<a data-page="economy" href="economy-dashboard.html">£ <b>Economy</b></a>
+<a data-page="cs" href="cs-dashboard.html">◆ <b>CS collection</b></a>
+<span>Services</span>
+<a data-page="music" href="music-dashboard.html">♫ <b>Music control</b></a>
+<a href="status.html">◌ <b>Bot status</b></a>
+<a data-page="admin" href="admin-dashboard.html">⌘ <b>Admin panel</b></a>
+</nav>
+<div class="dash-sidebar-foot">
+<div class="mini-user"><div class="avatar-fallback">C</div><span><b data-c4g-username>Loading…</b><small>Discord connected</small></span></div>
+<button data-c4g-logout id="demoLogout" title="Sign out">↪</button>
+</div>
+</aside>
+<main class="dash-main">
+<header class="dash-top">
+<button class="dash-menu" aria-label="Toggle dashboard menu">☰</button>
+<div><span class="eyebrow">C4G Control Centre</span><h1>CS collection</h1></div>
+<div class="top-actions"><button class="icon-button" title="Notifications">●</button><a class="button small ghost" href="index.html">View site</a></div>
+</header>
+<section class="dash-content">
+<div class="dashboard-banner cs-hero">
+<div><span class="tag purple">C4G Cases</span><h2>Your collection. Your market. Your grind.</h2><p>Your real CS collection is loaded from the C4G Bot database.</p></div>
+<div class="collection-value"><span>Collection value</span><b data-cs-collection-value>Loading…</b><small><span data-cs-skin-count>0</span> skins · <span data-cs-case-count>0</span> cases</small></div>
+</div>
+<div class="dash-stat-grid">
+<article><span>Owned skins</span><b data-cs-skin-count>0</b><small>Synced from your inventory</small></article>
+<article><span>Owned cases</span><b data-cs-case-count>0</b><small>All quantities combined</small></article>
+<article><span>Premier rating</span><b data-cs-combat-rating>1000</b><small>Current combat rating</small></article>
+<article><span>Combat record</span><b data-cs-combat-record>0W / 0L</b><small>Recorded combat results</small></article>
+</div>
+<div class="dash-tabs">
+<button class="active" data-cs-tab="inventory">Inventory</button>
+<button data-cs-tab="cases">Cases</button>
+<button data-cs-tab="combat">Combat</button>
+</div>
+<section data-cs-panel="inventory">
+<div class="inventory-toolbar">
+<div class="search-box">⌕ <input data-cs-search type="search" placeholder="Search skins..."></div>
+<select data-cs-rarity-filter>
+<option value="all">All rarities</option>
+<option value="consumer-grade">Consumer Grade</option>
+<option value="industrial-grade">Industrial Grade</option>
+<option value="mil-spec">Mil-Spec</option>
+<option value="restricted">Restricted</option>
+<option value="classified">Classified</option>
+<option value="covert">Covert</option>
+<option value="contraband">Contraband</option>
+<option value="rare">Rare</option>
+<option value="legendary">Legendary</option>
+</select>
+<select data-cs-sort>
+<option value="value-desc">Value: high to low</option>
+<option value="value-asc">Value: low to high</option>
+<option value="name-asc">Name: A to Z</option>
+<option value="newest">Newest first</option>
+</select>
+</div>
+<div class="skin-grid" data-cs-inventory><p>Loading your CS inventory…</p></div>
+<p class="empty-state" data-cs-empty hidden>No matching CS skins were found.</p>
+</section>
+<section data-cs-panel="cases" hidden>
+<div class="dash-panel">
+<div class="panel-head"><div><span class="eyebrow">Case storage</span><h2>Your owned cases</h2></div></div>
+<div class="dash-grid" data-cs-cases><p>Loading your cases…</p></div>
+<p class="empty-state" data-cs-cases-empty hidden>You do not currently own any cases.</p>
+</div>
+</section>
+<section data-cs-panel="combat" hidden>
+<div class="dash-panel">
+<div class="panel-head"><div><span class="eyebrow">Combat profile</span><h2>Your current performance</h2></div></div>
+<div class="dash-stat-grid">
+<article><span>Premier rating</span><b data-cs-combat-rating>1000</b></article>
+<article><span>Record</span><b data-cs-combat-record>0W / 0L</b></article>
+</div>
+</div>
+</section>
+</section>
+</main>
+</div>
+<script src="api-config.js"></script>
+<script src="script.js"></script>
+<script src="v3.js"></script>
+</body>
+</html>
