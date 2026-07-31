@@ -539,6 +539,214 @@ async function loadC4GGuilds() {
     return guilds;
 }
 
+
+/* ==========================================================================
+   Live CS collection dashboard
+   ========================================================================== */
+
+function formatC4GCurrency(value) {
+    const number = Number(value || 0);
+    return new Intl.NumberFormat("en-GB", {
+        style: "currency",
+        currency: "GBP",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    }).format(Number.isFinite(number) ? number : 0);
+}
+
+function normaliseC4GRarity(value) {
+    return String(value || "unknown")
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+}
+
+function c4gSkinName(item) {
+    return item.skin_name || item.database_skin_name || item.name || "Unknown skin";
+}
+
+function c4gSkinValue(item) {
+    const value = Number(item.server_value ?? item.value ?? 0);
+    return Number.isFinite(value) ? value : 0;
+}
+
+function renderC4GCsInventory(items) {
+    const grid = document.querySelector("[data-cs-inventory]");
+    const empty = document.querySelector("[data-cs-empty]");
+    if (!grid) return;
+
+    const query = (document.querySelector("[data-cs-search]")?.value || "").toLowerCase().trim();
+    const rarity = document.querySelector("[data-cs-rarity-filter]")?.value || "all";
+    const sort = document.querySelector("[data-cs-sort]")?.value || "value-desc";
+
+    let visible = [...items].filter((item) => {
+        const searchable = [
+            c4gSkinName(item),
+            item.wear,
+            item.rarity,
+            item.item_type,
+            item.case_name
+        ].filter(Boolean).join(" ").toLowerCase();
+
+        return (!query || searchable.includes(query)) &&
+            (rarity === "all" || normaliseC4GRarity(item.rarity) === rarity);
+    });
+
+    visible.sort((a, b) => {
+        if (sort === "value-asc") return c4gSkinValue(a) - c4gSkinValue(b);
+        if (sort === "name-asc") return c4gSkinName(a).localeCompare(c4gSkinName(b));
+        if (sort === "newest") return Number(b.obtained_at || 0) - Number(a.obtained_at || 0);
+        return c4gSkinValue(b) - c4gSkinValue(a);
+    });
+
+    grid.innerHTML = "";
+
+    if (!visible.length) {
+        if (empty) empty.hidden = false;
+        return;
+    }
+
+    if (empty) empty.hidden = true;
+
+    visible.forEach((item) => {
+        const article = document.createElement("article");
+        const rarityText = String(item.rarity || "Unknown");
+        const name = c4gSkinName(item);
+        const wear = item.wear || "Unknown wear";
+        const type = item.item_type || "CS item";
+        const imageUrl = item.image_url || "";
+
+        const badge = document.createElement("span");
+        badge.className = `rarity ${normaliseC4GRarity(rarityText)}`;
+        badge.textContent = rarityText;
+
+        const visual = document.createElement("div");
+        visual.className = "skin-visual";
+
+        if (imageUrl) {
+            const image = document.createElement("img");
+            image.src = imageUrl;
+            image.alt = name;
+            image.loading = "lazy";
+            visual.appendChild(image);
+        } else {
+            visual.textContent = type;
+        }
+
+        const title = document.createElement("h3");
+        title.textContent = name;
+
+        const details = document.createElement("p");
+        const parts = [wear];
+        if (item.stattrak) parts.push("StatTrak™");
+        if (item.souvenir) parts.push("Souvenir");
+        details.textContent = parts.join(" · ");
+
+        const footer = document.createElement("footer");
+        const price = document.createElement("b");
+        price.textContent = formatC4GCurrency(c4gSkinValue(item));
+        const small = document.createElement("small");
+        small.textContent = type;
+        footer.append(price, small);
+
+        article.append(badge, visual, title, details, footer);
+        grid.appendChild(article);
+    });
+}
+
+function renderC4GCsCases(cases) {
+    const container = document.querySelector("[data-cs-cases]");
+    const empty = document.querySelector("[data-cs-cases-empty]");
+    if (!container) return;
+
+    const owned = cases.filter((item) => Number(item.amount || 0) > 0);
+    container.innerHTML = "";
+
+    if (!owned.length) {
+        if (empty) empty.hidden = false;
+        return;
+    }
+
+    if (empty) empty.hidden = true;
+
+    owned.forEach((item) => {
+        const article = document.createElement("article");
+        article.className = "dash-panel";
+
+        const title = document.createElement("h3");
+        title.textContent = item.case_name || "Unknown case";
+
+        const amount = document.createElement("b");
+        amount.textContent = `${Number(item.amount || 0).toLocaleString("en-GB")} owned`;
+
+        article.append(title, amount);
+        container.appendChild(article);
+    });
+}
+
+function setC4GCsTab(name) {
+    document.querySelectorAll("[data-cs-tab]").forEach((button) => {
+        button.classList.toggle("active", button.dataset.csTab === name);
+    });
+
+    document.querySelectorAll("[data-cs-panel]").forEach((panel) => {
+        panel.hidden = panel.dataset.csPanel !== name;
+    });
+}
+
+async function loadC4GCsDashboard() {
+    if (document.body.dataset.dashboardPage !== "cs") return;
+
+    const [inventory, cases, combat] = await Promise.all([
+        c4gFetch("/api/cs/inventory"),
+        c4gFetch("/api/cs/cases"),
+        c4gFetch("/api/combat")
+    ]);
+
+    const items = Array.isArray(inventory) ? inventory : [];
+    const ownedCases = Array.isArray(cases) ? cases : [];
+    const collectionValue = items.reduce((total, item) => total + c4gSkinValue(item), 0);
+    const caseCount = ownedCases.reduce((total, item) => total + Number(item.amount || 0), 0);
+
+    document.querySelectorAll("[data-cs-collection-value]").forEach((element) => {
+        element.textContent = formatC4GCurrency(collectionValue);
+    });
+
+    document.querySelectorAll("[data-cs-skin-count]").forEach((element) => {
+        element.textContent = items.length.toLocaleString("en-GB");
+    });
+
+    document.querySelectorAll("[data-cs-case-count]").forEach((element) => {
+        element.textContent = caseCount.toLocaleString("en-GB");
+    });
+
+    document.querySelectorAll("[data-cs-combat-rating]").forEach((element) => {
+        element.textContent = Number(combat?.premier_rating || 1000).toLocaleString("en-GB");
+    });
+
+    document.querySelectorAll("[data-cs-combat-record]").forEach((element) => {
+        element.textContent = `${Number(combat?.wins || 0)}W / ${Number(combat?.losses || 0)}L`;
+    });
+
+    window.C4G_CS_ITEMS = items;
+    renderC4GCsInventory(items);
+    renderC4GCsCases(ownedCases);
+
+    document.querySelectorAll("[data-cs-search], [data-cs-rarity-filter], [data-cs-sort]").forEach((control) => {
+        control.addEventListener(control instanceof HTMLInputElement ? "input" : "change", () => {
+            renderC4GCsInventory(window.C4G_CS_ITEMS || []);
+        });
+    });
+
+    document.querySelectorAll("[data-cs-tab]").forEach((button) => {
+        button.addEventListener("click", () => setC4GCsTab(button.dataset.csTab || "inventory"));
+    });
+
+    setC4GCsTab("inventory");
+}
+
+
 /* ==========================================================================
    Dashboard authentication bootstrap
    ========================================================================== */
@@ -578,6 +786,7 @@ async function initialiseDashboard() {
     try {
         await loadC4GProfile();
         await loadC4GGuilds();
+        await loadC4GCsDashboard();
     } catch (error) {
         console.warn("C4G dashboard could not initialise", error);
 
