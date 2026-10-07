@@ -32,7 +32,7 @@
     >
 </head>
 
-<body class="">
+<body>
 
     <canvas
         id="particles"
@@ -63,15 +63,11 @@
                 >
 
                 <span>
-
-                    <b>
-                        C4G HUB
-                    </b>
+                    <b>C4G HUB</b>
 
                     <small>
                         ONE COMMUNITY. ENDLESS POSSIBILITIES.
                     </small>
-
                 </span>
 
             </a>
@@ -116,7 +112,10 @@
                     Roadmap
                 </a>
 
-                <a href="staff.html">
+                <a
+                    href="staff.html"
+                    aria-current="page"
+                >
                     Staff
                 </a>
 
@@ -168,31 +167,18 @@
             <div class="container">
 
                 <div
-                    class="staff-grid"
-                    id="staff-grid"
+                    id="staff-status"
+                    class="staff-status"
+                    aria-live="polite"
                 >
-
-                    <article class="staff-card placeholder reveal">
-
-                        <div class="avatar">
-                            ...
-                        </div>
-
-                        <span class="role">
-                            Loading Staff
-                        </span>
-
-                        <h2>
-                            Loading...
-                        </h2>
-
-                        <p>
-                            Loading the C4G staff team from Discord.
-                        </p>
-
-                    </article>
-
+                    Loading staff...
                 </div>
+
+
+                <div
+                    id="staff-grid"
+                    class="staff-grid"
+                ></div>
 
             </div>
 
@@ -324,241 +310,350 @@
 
 
     <script src="api-config.js"></script>
+
     <script src="script.js"></script>
 
 
     <script>
-        async function loadStaff() {
-
-            const staffGrid =
-                document.getElementById("staff-grid");
-
-            if (!staffGrid) {
-                return;
-            }
-
-            try {
-
-                const apiBase =
-                    typeof API_BASE_URL !== "undefined"
-                        ? API_BASE_URL.replace(/\/$/, "")
-                        : "";
-
-                const response =
-                    await fetch(
-                        `${apiBase}/api/staff`,
-                        {
-                            method: "GET",
-                            credentials: "include"
-                        }
-                    );
-
-                if (!response.ok) {
-                    throw new Error(
-                        `Staff API returned ${response.status}`
-                    );
-                }
-
-                const data =
-                    await response.json();
-
-                const staff =
-                    Array.isArray(data.members)
-                        ? data.members
-                        : [];
-
-                staffGrid.innerHTML = "";
-
-                if (!staff.length) {
-
-                    staffGrid.innerHTML = `
-                        <article class="staff-card placeholder reveal">
-                            <div class="avatar">?</div>
-
-                            <span class="role">
-                                Staff
-                            </span>
-
-                            <h2>
-                                No Staff Found
-                            </h2>
-
-                            <p>
-                                No members with the configured staff roles were found.
-                            </p>
-                        </article>
-                    `;
-
-                    return;
-                }
-
-
-                staff.forEach(
-                    (member, index) => {
-
-                        const card =
-                            document.createElement(
-                                "article"
-                            );
-
-                        card.className =
-                            "staff-card reveal";
-
-
-                        if (
-                            member.role === "Owner"
-                        ) {
-                            card.classList.add(
-                                "owner"
-                            );
-                        }
-
-
-                        const avatar =
-                            member.avatar_url
-                                ? `
-                                    <div class="avatar">
-                                        <img
-                                            src="${escapeHtml(member.avatar_url)}"
-                                            alt="${escapeHtml(member.display_name)}"
-                                            loading="lazy"
-                                            onerror="this.onerror=null;this.src='assets/c4g-logo.png';"
-                                        >
-                                    </div>
-                                `
-                                : `
-                                    <div class="avatar">
-                                        <img
-                                            src="assets/c4g-logo.png"
-                                            alt="${escapeHtml(member.display_name)}"
-                                        >
-                                    </div>
-                                `;
-
-
-                        card.innerHTML = `
-
-                            ${avatar}
-
-                            <span class="role">
-                                ${escapeHtml(member.role)}
-                            </span>
-
-                            <h2>
-                                ${escapeHtml(member.display_name)}
-                            </h2>
-
-                            <p>
-                                @${escapeHtml(member.username || "unknown")}
-                            </p>
-
-                            <div class="staff-tags">
-
-                                <span>
-                                    Discord
-                                </span>
-
-                                <span>
-                                    ${escapeHtml(member.role)}
-                                </span>
-
-                            </div>
-
-                        `;
-
-
-                        staffGrid.appendChild(
-                            card
-                        );
-
-
-                        setTimeout(
-                            () => {
-                                card.classList.add(
-                                    "visible"
-                                );
-                            },
-                            index * 75
-                        );
-
-                    }
-                );
-
-            } catch (error) {
-
-                console.error(
-                    "Failed to load C4G staff:",
-                    error
-                );
-
-                staffGrid.innerHTML = `
-
-                    <article class="staff-card placeholder reveal">
-
-                        <div class="avatar">
-                            !
-                        </div>
-
-                        <span class="role">
-                            Staff
-                        </span>
-
-                        <h2>
-                            Unable to Load Staff
-                        </h2>
-
-                        <p>
-                            The staff list could not be loaded from Discord right now.
-                        </p>
-
-                    </article>
-
-                `;
-
-            }
-
-        }
-
-
-        function escapeHtml(value) {
-
-            if (
-                value === null ||
-                value === undefined
-            ) {
-                return "";
-            }
-
-            return String(value)
-                .replace(
-                    /&/g,
-                    "&amp;"
-                )
-                .replace(
-                    /</g,
-                    "&lt;"
-                )
-                .replace(
-                    />/g,
-                    "&gt;"
-                )
-                .replace(
-                    /"/g,
-                    "&quot;"
-                )
-                .replace(
-                    /'/g,
-                    "&#039;"
-                );
-
-        }
-
-
         document.addEventListener(
             "DOMContentLoaded",
             loadStaff
         );
 
+
+        async function loadStaff() {
+
+            const grid =
+                document.getElementById(
+                    "staff-grid"
+                );
+
+            const status =
+                document.getElementById(
+                    "staff-status"
+                );
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${window.C4G_API_URL}/api/staff`
+                    );
+
+
+                if (!response.ok) {
+
+                    let message =
+                        "Could not load staff.";
+
+                    try {
+
+                        const error =
+                            await response.json();
+
+                        if (error.detail) {
+                            message =
+                                error.detail;
+                        }
+
+                    } catch (_) {
+                        // Ignore invalid error JSON.
+                    }
+
+                    throw new Error(
+                        message
+                    );
+                }
+
+
+                const data =
+                    await response.json();
+
+
+                const members =
+                    Array.isArray(
+                        data.members
+                    )
+                        ? data.members
+                        : [];
+
+
+                grid.innerHTML = "";
+
+
+                if (!members.length) {
+
+                    status.textContent =
+                        "No staff members were found.";
+
+                    return;
+                }
+
+
+                status.textContent =
+                    "";
+
+
+                for (
+                    const member of members
+                ) {
+
+                    grid.appendChild(
+                        createStaffCard(
+                            member
+                        )
+                    );
+                }
+
+
+            } catch (error) {
+
+                console.error(
+                    "C4G staff error:",
+                    error
+                );
+
+
+                status.textContent =
+                    error.message ||
+                    "Unable to load staff members.";
+
+            }
+
+        }
+
+
+        function createStaffCard(
+            member
+        ) {
+
+            const article =
+                document.createElement(
+                    "article"
+                );
+
+            article.className =
+                "staff-card reveal";
+
+
+            const avatar =
+                document.createElement(
+                    "div"
+                );
+
+            avatar.className =
+                "avatar";
+
+
+            const image =
+                document.createElement(
+                    "img"
+                );
+
+            image.src =
+                member.avatar_url ||
+                "assets/c4g-logo.png";
+
+            image.alt =
+                `${member.display_name} avatar`;
+
+            image.loading =
+                "lazy";
+
+
+            image.onerror =
+                function () {
+
+                    this.onerror =
+                        null;
+
+                    this.src =
+                        "assets/c4g-logo.png";
+
+                };
+
+
+            avatar.appendChild(
+                image
+            );
+
+
+            const role =
+                document.createElement(
+                    "span"
+                );
+
+            role.className =
+                "role";
+
+            role.textContent =
+                member.role ||
+                "Staff";
+
+
+            const name =
+                document.createElement(
+                    "h2"
+                );
+
+            name.textContent =
+                member.display_name ||
+                member.username ||
+                "Unknown User";
+
+
+            const username =
+                document.createElement(
+                    "p"
+                );
+
+            username.className =
+                "staff-username";
+
+            username.textContent =
+                `@${member.username || "unknown"}`;
+
+
+            const description =
+                document.createElement(
+                    "p"
+                );
+
+            description.textContent =
+                getStaffDescription(
+                    member.role
+                );
+
+
+            article.appendChild(
+                avatar
+            );
+
+            article.appendChild(
+                role
+            );
+
+            article.appendChild(
+                name
+            );
+
+            article.appendChild(
+                username
+            );
+
+            article.appendChild(
+                description
+            );
+
+
+            if (
+                Array.isArray(
+                    member.roles
+                )
+                &&
+                member.roles.length > 1
+            ) {
+
+                const tags =
+                    document.createElement(
+                        "div"
+                    );
+
+                tags.className =
+                    "staff-tags";
+
+
+                for (
+                    const staffRole
+                    of member.roles
+                ) {
+
+                    const tag =
+                        document.createElement(
+                            "span"
+                        );
+
+                    tag.textContent =
+                        staffRole.name;
+
+                    tags.appendChild(
+                        tag
+                    );
+
+                }
+
+
+                article.appendChild(
+                    tags
+                );
+
+            }
+
+
+            return article;
+
+        }
+
+
+        function getStaffDescription(
+            role
+        ) {
+
+            const descriptions = {
+
+                "Owner":
+                    "Creator of C4G Hub and developer of the connected bot and web ecosystem.",
+
+                "Co-Owner":
+                    "Helping lead the C4G Hub community and support the direction of the project.",
+
+                "Manager":
+                    "Helping manage the C4G Hub community, staff and day-to-day operations.",
+
+                "Head of Admin":
+                    "Leading the administration team and helping keep the community organised and secure.",
+
+                "Head of Mods":
+                    "Leading the moderation team and helping maintain a safe and welcoming community.",
+
+                "Head of Staff":
+                    "Helping coordinate the wider staff team and community operations.",
+
+                "App Manager":
+                    "Managing applications and helping bring new members into the C4G staff team.",
+
+                "Admin":
+                    "Helping manage the server, staff and community operations.",
+
+                "Mod":
+                    "Helping moderate the community and keep C4G Hub friendly and enjoyable.",
+
+                "Staff Team":
+                    "A member of the C4G Hub staff team helping support the community.",
+
+                "Chat Staff":
+                    "Helping moderate conversations and support members across the community.",
+
+                "VC Staff":
+                    "Helping manage voice channels and support the community in voice chat.",
+
+                "Bilingual Staff":
+                    "Helping support members across multiple languages within the community.",
+
+                "Support Team":
+                    "Helping members with questions, problems and general community support."
+
+            };
+
+
+            return (
+                descriptions[role]
+                ||
+                "A member of the C4G Hub staff team helping support the community."
+            );
+
+        }
     </script>
 
 </body>
