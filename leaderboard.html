@@ -1,7 +1,10 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+
     <meta charset="utf-8">
+
     <meta
         name="viewport"
         content="width=device-width,initial-scale=1"
@@ -12,7 +15,9 @@
         content="#09040f"
     >
 
-    <title>Leaderboards | C4G Hub</title>
+    <title>
+        Leaderboards | C4G Hub
+    </title>
 
     <link
         rel="icon"
@@ -28,18 +33,85 @@
         rel="stylesheet"
         href="v3.css"
     >
+
+    <style>
+
+        .podium-avatar img,
+        .tiny-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+        }
+
+        .tiny-avatar {
+            overflow: hidden;
+        }
+
+        .leaderboard-avatar {
+            width: 42px;
+            height: 42px;
+            min-width: 42px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #24152f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .leaderboard-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .rank-list > div {
+            display: grid;
+            grid-template-columns:
+                45px
+                48px
+                minmax(120px, 1fr)
+                120px
+                150px;
+
+            align-items: center;
+            gap: 12px;
+        }
+
+        @media (max-width: 700px) {
+
+            .rank-list > div {
+                grid-template-columns:
+                    35px
+                    42px
+                    minmax(100px, 1fr)
+                    90px;
+            }
+
+            .rank-list > div small {
+                display: none;
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body
     class="dashboard-page"
     data-dashboard-page="leaderboard"
 >
 
+
 <div class="dashboard-app">
 
-    <!-- ======================================================
-         SIDEBAR
-    ======================================================= -->
+
+    <!-- SIDEBAR -->
 
     <aside class="dash-sidebar">
 
@@ -47,20 +119,32 @@
             class="dash-brand"
             href="index.html"
         >
+
             <img
                 src="assets/c4g-logo.png"
                 alt="C4G Hub"
             >
 
             <span>
-                <b>C4G HUB</b>
-                <small>CONTROL CENTRE</small>
+
+                <b>
+                    C4G HUB
+                </b>
+
+                <small>
+                    CONTROL CENTRE
+                </small>
+
             </span>
+
         </a>
+
 
         <nav class="dash-nav">
 
-            <span>Workspace</span>
+            <span>
+                Workspace
+            </span>
 
             <a
                 data-page="dashboard"
@@ -83,7 +167,10 @@
                 ◫ <b>Analytics</b>
             </a>
 
-            <span>Community</span>
+
+            <span>
+                Community
+            </span>
 
             <a
                 data-page="leaderboard"
@@ -106,7 +193,10 @@
                 ◆ <b>CS collection</b>
             </a>
 
-            <span>Services</span>
+
+            <span>
+                Services
+            </span>
 
             <a
                 data-page="music"
@@ -128,6 +218,7 @@
 
         </nav>
 
+
         <div class="dash-sidebar-foot">
 
             <div class="mini-user">
@@ -137,6 +228,7 @@
                 </div>
 
                 <span>
+
                     <b data-c4g-username>
                         Cal420
                     </b>
@@ -144,9 +236,11 @@
                     <small>
                         Private beta
                     </small>
+
                 </span>
 
             </div>
+
 
             <button
                 data-c4g-logout
@@ -161,9 +255,7 @@
     </aside>
 
 
-    <!-- ======================================================
-         MAIN
-    ======================================================= -->
+    <!-- MAIN -->
 
     <main class="dash-main">
 
@@ -176,6 +268,7 @@
                 ☰
             </button>
 
+
             <div>
 
                 <span class="eyebrow">
@@ -187,6 +280,7 @@
                 </h1>
 
             </div>
+
 
             <div class="top-actions">
 
@@ -211,16 +305,15 @@
 
         <section class="dash-content">
 
-            <!-- ==================================================
-                 BANNER
-            =================================================== -->
+
+            <!-- BANNER -->
 
             <div class="dashboard-banner">
 
                 <div>
 
                     <span class="tag purple">
-                        XP Rankings
+                        Level Rankings
                     </span>
 
                     <h2>
@@ -228,11 +321,12 @@
                     </h2>
 
                     <p>
-                        See who leads the community in XP
-                        and levels.
+                        See who leads the community
+                        by level and XP.
                     </p>
 
                 </div>
+
 
                 <div class="season-timer">
 
@@ -249,9 +343,7 @@
             </div>
 
 
-            <!-- ==================================================
-                 PODIUM
-            =================================================== -->
+            <!-- PODIUM -->
 
             <div
                 class="podium"
@@ -336,9 +428,7 @@
             </div>
 
 
-            <!-- ==================================================
-                 GLOBAL RANKING
-            =================================================== -->
+            <!-- GLOBAL RANKING -->
 
             <section class="dash-panel">
 
@@ -356,10 +446,11 @@
 
                     </div>
 
+
                     <select id="leaderboardType">
 
                         <option value="levels">
-                            XP
+                            Levels
                         </option>
 
                         <option value="money">
@@ -391,29 +482,26 @@
                 </div>
 
 
-                <!-- Loading -->
-
                 <div
                     id="leaderboardLoading"
                     style="
-                        padding: 30px;
-                        text-align: center;
+                        padding:30px;
+                        text-align:center;
                     "
                 >
                     Loading leaderboard...
                 </div>
 
 
-                <!-- Error -->
-
                 <div
                     id="leaderboardError"
                     style="
-                        display: none;
-                        padding: 30px;
-                        text-align: center;
+                        display:none;
+                        padding:30px;
+                        text-align:center;
                     "
                 >
+
                     <b>
                         Unable to load leaderboard.
                     </b>
@@ -421,10 +509,9 @@
                     <p id="leaderboardErrorText">
                         Please try again.
                     </p>
+
                 </div>
 
-
-                <!-- Actual rankings -->
 
                 <div
                     class="rank-list"
@@ -441,18 +528,10 @@
 </div>
 
 
-<!-- ==========================================================
-     API / SITE SCRIPTS
-=========================================================== -->
-
 <script src="api-config.js"></script>
 <script src="script.js"></script>
 <script src="v3.js"></script>
 
-
-<!-- ==========================================================
-     LEADERBOARD SCRIPT
-=========================================================== -->
 
 <script>
 
@@ -461,47 +540,35 @@
     "use strict";
 
 
-    /*
-     * ---------------------------------------------------------
-     * API CONFIG
-     * ---------------------------------------------------------
-     *
-     * api-config.js can define the API URL.
-     *
-     * If it does not, this fallback points to your Render API.
-     */
-
     const API_BASE =
         window.C4G_API_URL ||
         window.API_BASE_URL ||
         "https://c4g-api.onrender.com";
 
 
-    /*
-     * ---------------------------------------------------------
-     * ELEMENTS
-     * ---------------------------------------------------------
-     */
-
     const loading =
         document.getElementById(
             "leaderboardLoading"
         );
+
 
     const error =
         document.getElementById(
             "leaderboardError"
         );
 
+
     const errorText =
         document.getElementById(
             "leaderboardErrorText"
         );
 
+
     const rankList =
         document.getElementById(
             "rankList"
         );
+
 
     const leaderboardType =
         document.getElementById(
@@ -509,40 +576,27 @@
         );
 
 
-    /*
-     * ---------------------------------------------------------
-     * FORMAT NUMBERS
-     * ---------------------------------------------------------
-     */
+    function formatNumber(
+        value
+    ) {
 
-    function formatNumber(value) {
-
-        const number =
-            Number(value) || 0;
-
-        return number.toLocaleString(
+        return (
+            Number(value) || 0
+        ).toLocaleString(
             "en-US"
         );
+
     }
 
 
-    /*
-     * ---------------------------------------------------------
-     * GET USER DISPLAY NAME
-     * ---------------------------------------------------------
-     *
-     * The leaderboard currently contains Discord IDs.
-     *
-     * If your synced database later contains usernames,
-     * this function can use them automatically.
-     */
-
-    function getUserName(row) {
+    function getUserName(
+        row
+    ) {
 
         return (
-            row.username ||
-            row.global_name ||
             row.display_name ||
+            row.global_name ||
+            row.username ||
             row.name ||
             `Discord User ${row.user_id || ""}`
         );
@@ -550,13 +604,9 @@
     }
 
 
-    /*
-     * ---------------------------------------------------------
-     * XP / LEVEL VALUES
-     * ---------------------------------------------------------
-     */
-
-    function getXp(row) {
+    function getXp(
+        row
+    ) {
 
         return Number(
             row.xp ??
@@ -568,7 +618,9 @@
     }
 
 
-    function getLevel(row) {
+    function getLevel(
+        row
+    ) {
 
         return Number(
             row.level ??
@@ -578,38 +630,96 @@
     }
 
 
-    /*
-     * ---------------------------------------------------------
-     * AVATAR
-     * ---------------------------------------------------------
-     *
-     * We currently only have Discord IDs from the leaderboard.
-     *
-     * Discord's default avatar can still be shown using the
-     * user ID as a fallback.
-     */
-
-    function getAvatarLetter(row) {
-
-        const name =
-            getUserName(row);
+    function getAvatarUrl(
+        row
+    ) {
 
         return (
-            String(name)
-                .trim()
-                .charAt(0)
-                .toUpperCase() ||
-            "?"
+            row.avatar_url ||
+            row.avatar ||
+            null
         );
 
     }
 
 
-    /*
-     * ---------------------------------------------------------
-     * LOAD LEADERBOARD
-     * ---------------------------------------------------------
-     */
+    function getAvatarLetter(
+        row
+    ) {
+
+        return (
+            getUserName(row)
+                .trim()
+                .charAt(0)
+                .toUpperCase()
+            || "?"
+        );
+
+    }
+
+
+    function createAvatar(
+        row,
+        className
+    ) {
+
+        const container =
+            document.createElement(
+                "div"
+            );
+
+        container.className =
+            className;
+
+
+        const avatarUrl =
+            getAvatarUrl(row);
+
+
+        if (avatarUrl) {
+
+            const image =
+                document.createElement(
+                    "img"
+                );
+
+            image.src =
+                avatarUrl;
+
+            image.alt =
+                `${getUserName(row)} avatar`;
+
+            image.loading =
+                "lazy";
+
+
+            image.onerror =
+                function () {
+
+                    this.remove();
+
+                    container.textContent =
+                        getAvatarLetter(row);
+
+                };
+
+
+            container.appendChild(
+                image
+            );
+
+        } else {
+
+            container.textContent =
+                getAvatarLetter(row);
+
+        }
+
+
+        return container;
+
+    }
+
 
     async function loadLeaderboard(
         boardName = "levels"
@@ -623,6 +733,7 @@
 
         rankList.style.display =
             "none";
+
 
         try {
 
@@ -640,13 +751,9 @@
                 );
 
 
-            /*
-             * -------------------------------------------------
-             * AUTH ERROR
-             * -------------------------------------------------
-             */
-
-            if (response.status === 401) {
+            if (
+                response.status === 401
+            ) {
 
                 throw new Error(
                     "You need to sign in with Discord to view the leaderboard."
@@ -655,30 +762,32 @@
             }
 
 
-            /*
-             * -------------------------------------------------
-             * OTHER HTTP ERRORS
-             * -------------------------------------------------
-             */
-
-            if (!response.ok) {
+            if (
+                !response.ok
+            ) {
 
                 let message =
                     `Leaderboard request failed (${response.status}).`;
+
 
                 try {
 
                     const data =
                         await response.json();
 
-                    if (data.detail) {
+                    if (
+                        data.detail
+                    ) {
+
                         message =
                             data.detail;
+
                     }
 
                 } catch (_) {
-                    // Ignore invalid error JSON.
+                    // Ignore invalid JSON.
                 }
+
 
                 throw new Error(
                     message
@@ -691,17 +800,13 @@
                 await response.json();
 
 
-            /*
-             * -------------------------------------------------
-             * GET ROWS
-             * -------------------------------------------------
-             */
-
             const rows =
                 Array.isArray(data)
                     ? data
                     : (
-                        Array.isArray(data.rows)
+                        Array.isArray(
+                            data.rows
+                        )
                             ? data.rows
                             : []
                     );
@@ -713,18 +818,21 @@
             );
 
 
-            /*
-             * -------------------------------------------------
-             * LAST UPDATED
-             * -------------------------------------------------
-             */
+            const updated =
+                document.getElementById(
+                    "leaderboardUpdated"
+                );
 
-            if (data.updated_at) {
+
+            if (
+                data.updated_at
+            ) {
 
                 const date =
                     new Date(
                         data.updated_at
                     );
+
 
                 if (
                     !Number.isNaN(
@@ -732,9 +840,7 @@
                     )
                 ) {
 
-                    document.getElementById(
-                        "leaderboardUpdated"
-                    ).textContent =
+                    updated.textContent =
                         `Updated ${date.toLocaleTimeString(
                             [],
                             {
@@ -743,13 +849,16 @@
                             }
                         )}`;
 
+                } else {
+
+                    updated.textContent =
+                        "Live";
+
                 }
 
             } else {
 
-                document.getElementById(
-                    "leaderboardUpdated"
-                ).textContent =
+                updated.textContent =
                     "Live";
 
             }
@@ -762,6 +871,7 @@
                 err
             );
 
+
             loading.style.display =
                 "none";
 
@@ -772,18 +882,10 @@
                 err.message ||
                 "Unable to load leaderboard.";
 
-            return;
-
         }
 
     }
 
-
-    /*
-     * ---------------------------------------------------------
-     * RENDER LEADERBOARD
-     * ---------------------------------------------------------
-     */
 
     function renderLeaderboard(
         rows,
@@ -801,7 +903,10 @@
 
 
         /*
-         * Sort XP leaderboard correctly.
+         * Levels:
+         *
+         * 1. Highest level
+         * 2. Highest XP if levels are equal
          */
 
         if (
@@ -809,20 +914,29 @@
         ) {
 
             rows.sort(
-                (a, b) => {
+                (
+                    a,
+                    b
+                ) => {
 
                     const levelDifference =
-                        getLevel(b) -
+                        getLevel(b)
+                        -
                         getLevel(a);
+
 
                     if (
                         levelDifference !== 0
                     ) {
+
                         return levelDifference;
+
                     }
 
+
                     return (
-                        getXp(b) -
+                        getXp(b)
+                        -
                         getXp(a)
                     );
 
@@ -831,12 +945,6 @@
 
         }
 
-
-        /*
-         * -----------------------------------------------------
-         * PODIUM
-         * -----------------------------------------------------
-         */
 
         if (
             boardName === "levels"
@@ -848,12 +956,6 @@
 
         }
 
-
-        /*
-         * -----------------------------------------------------
-         * RANK LIST
-         * -----------------------------------------------------
-         */
 
         rows
             .slice(
@@ -869,41 +971,81 @@
                     const rank =
                         index + 4;
 
+
                     const element =
                         document.createElement(
                             "div"
                         );
 
 
-                    element.innerHTML = `
-                        <span>${rank}</span>
+                    const rankElement =
+                        document.createElement(
+                            "span"
+                        );
 
-                        <div class="tiny-avatar">
-                            ${escapeHtml(
-                                getAvatarLetter(row)
-                            )}
-                        </div>
+                    rankElement.textContent =
+                        `#${rank}`;
 
-                        <b>
-                            ${escapeHtml(
-                                getUserName(row)
-                            )}
-                        </b>
 
-                        <small>
-                            ${getSecondaryValue(
-                                row,
-                                boardName
-                            )}
-                        </small>
+                    const avatar =
+                        createAvatar(
+                            row,
+                            "leaderboard-avatar"
+                        );
 
-                        <strong>
-                            ${getPrimaryValue(
-                                row,
-                                boardName
-                            )}
-                        </strong>
-                    `;
+
+                    const name =
+                        document.createElement(
+                            "b"
+                        );
+
+                    name.textContent =
+                        getUserName(row);
+
+
+                    const secondary =
+                        document.createElement(
+                            "small"
+                        );
+
+                    secondary.textContent =
+                        getSecondaryValue(
+                            row,
+                            boardName
+                        );
+
+
+                    const primary =
+                        document.createElement(
+                            "strong"
+                        );
+
+                    primary.textContent =
+                        getPrimaryValue(
+                            row,
+                            boardName
+                        );
+
+
+                    element.appendChild(
+                        rankElement
+                    );
+
+                    element.appendChild(
+                        avatar
+                    );
+
+                    element.appendChild(
+                        name
+                    );
+
+                    element.appendChild(
+                        secondary
+                    );
+
+                    element.appendChild(
+                        primary
+                    );
 
 
                     rankList.appendChild(
@@ -914,22 +1056,19 @@
             );
 
 
-        /*
-         * If fewer than 4 users exist,
-         * there may be nothing in the lower list.
-         */
-
         if (
             rows.length <= 3
         ) {
 
             rankList.innerHTML =
-                `<div style="
+                `
+                <div style="
                     padding:20px;
                     text-align:center;
                 ">
                     No additional members to display.
-                </div>`;
+                </div>
+                `;
 
         }
 
@@ -940,39 +1079,23 @@
     }
 
 
-    /*
-     * ---------------------------------------------------------
-     * PODIUM
-     * ---------------------------------------------------------
-     */
-
     function renderPodium(
         rows
     ) {
 
-        const first =
-            rows[0];
-
-        const second =
-            rows[1];
-
-        const third =
-            rows[2];
-
-
         setPodiumMember(
             "first",
-            first
+            rows[0]
         );
 
         setPodiumMember(
             "second",
-            second
+            rows[1]
         );
 
         setPodiumMember(
             "third",
-            third
+            rows[2]
         );
 
     }
@@ -988,15 +1111,21 @@
                 `${position}Avatar`
             );
 
+
         const name =
             document.getElementById(
                 `${position}Name`
             );
 
+
         const xp =
             document.getElementById(
                 `${position}Xp`
             );
+
+
+        avatar.innerHTML =
+            "";
 
 
         if (!row) {
@@ -1015,84 +1144,113 @@
         }
 
 
-        avatar.textContent =
-            getAvatarLetter(row);
+        const avatarElement =
+            createAvatar(
+                row,
+                "podium-avatar"
+            );
+
+
+        avatar.replaceWith(
+            avatarElement
+        );
+
 
         name.textContent =
             getUserName(row);
 
+
         xp.textContent =
-            `${formatNumber(
+            `Level ${formatNumber(
+                getLevel(row)
+            )} · ${formatNumber(
                 getXp(row)
             )} XP`;
 
     }
 
 
-    /*
-     * ---------------------------------------------------------
-     * PRIMARY VALUE
-     * ---------------------------------------------------------
-     */
-
     function getPrimaryValue(
         row,
         boardName
     ) {
 
-        switch (boardName) {
+        switch (
+            boardName
+        ) {
 
             case "levels":
 
-                return `${formatNumber(
-                    getXp(row)
-                )} XP`;
+                return (
+                    `Level ${formatNumber(
+                        getLevel(row)
+                    )}`
+                );
+
 
             case "money":
 
-                return `${formatNumber(
-                    row.money ??
-                    row.credits ??
-                    0
-                )} credits`;
+                return (
+                    `${formatNumber(
+                        row.money ??
+                        row.credits ??
+                        0
+                    )} credits`
+                );
+
 
             case "messages":
 
-                return `${formatNumber(
-                    row.messages ??
-                    0
-                )} messages`;
+                return (
+                    `${formatNumber(
+                        row.messages ??
+                        0
+                    )} messages`
+                );
+
 
             case "voice":
 
-                return `${formatNumber(
-                    row.total_minutes ??
-                    row.voice_minutes ??
-                    0
-                )} min`;
+                return (
+                    `${formatNumber(
+                        row.total_minutes ??
+                        row.voice_minutes ??
+                        0
+                    )} min`
+                );
+
 
             case "games":
 
-                return `${formatNumber(
-                    row.credits_earned ??
-                    row.games_won ??
-                    0
-                )}`;
+                return (
+                    formatNumber(
+                        row.credits_earned ??
+                        row.games_won ??
+                        0
+                    )
+                );
+
 
             case "combat":
 
-                return `${formatNumber(
-                    row.premier_rating ??
-                    row.wins ??
-                    0
-                )}`;
+                return (
+                    formatNumber(
+                        row.premier_rating ??
+                        row.wins ??
+                        0
+                    )
+                );
+
 
             case "cs_value":
 
-                return `${formatNumber(
-                    row.collection_value ??
-                    0
-                )}`;
+                return (
+                    `${formatNumber(
+                        row.collection_value ??
+                        0
+                    )}`
+                );
+
 
             default:
 
@@ -1103,51 +1261,58 @@
     }
 
 
-    /*
-     * ---------------------------------------------------------
-     * SECONDARY VALUE
-     * ---------------------------------------------------------
-     */
-
     function getSecondaryValue(
         row,
         boardName
     ) {
 
-        switch (boardName) {
+        switch (
+            boardName
+        ) {
 
             case "levels":
 
-                return `Level ${formatNumber(
-                    getLevel(row)
-                )}`;
+                return (
+                    `${formatNumber(
+                        getXp(row)
+                    )} XP`
+                );
+
 
             case "money":
 
                 return "Economy";
 
+
             case "messages":
 
                 return "Messages";
+
 
             case "voice":
 
                 return "Voice";
 
+
             case "games":
 
                 return "Games";
+
 
             case "combat":
 
                 return "Combat";
 
+
             case "cs_value":
 
-                return `${formatNumber(
-                    row.skin_count ??
-                    0
-                )} skins`;
+                return (
+                    `${formatNumber(
+                        row.skin_count ??
+                        0
+                    )} skins`
+                );
+
 
             default:
 
@@ -1158,50 +1323,9 @@
     }
 
 
-    /*
-     * ---------------------------------------------------------
-     * HTML ESCAPE
-     * ---------------------------------------------------------
-     */
-
-    function escapeHtml(
-        value
-    ) {
-
-        return String(value)
-            .replace(
-                /&/g,
-                "&amp;"
-            )
-            .replace(
-                /</g,
-                "&lt;"
-            )
-            .replace(
-                />/g,
-                "&gt;"
-            )
-            .replace(
-                /"/g,
-                "&quot;"
-            )
-            .replace(
-                /'/g,
-                "&#039;"
-            );
-
-    }
-
-
-    /*
-     * ---------------------------------------------------------
-     * DROPDOWN
-     * ---------------------------------------------------------
-     */
-
     leaderboardType.addEventListener(
         "change",
-        () => {
+        function () {
 
             loadLeaderboard(
                 leaderboardType.value
@@ -1210,12 +1334,6 @@
         }
     );
 
-
-    /*
-     * ---------------------------------------------------------
-     * INITIAL LOAD
-     * ---------------------------------------------------------
-     */
 
     loadLeaderboard(
         "levels"
@@ -1226,4 +1344,5 @@
 </script>
 
 </body>
+
 </html>
